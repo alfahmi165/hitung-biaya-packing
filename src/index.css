@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---------------------------------------------------------------- */
+  /* Colour system — "packing slip" palette: cool paper, graphite ink, */
+  /* amber packing tape, ink-stamp blue, and one swatch per material.  */
+  /* ---------------------------------------------------------------- */
+  --color-paper: #eef0f2;
+  --color-paper-dark: #e3e6ea;
+  --color-surface: #ffffff;
+
+  --color-ink-900: #10161d;
+  --color-ink-700: #333f4c;
+  --color-ink-500: #667384;
+  --color-ink-400: #8b97a6;
+
+  --color-line: #dde3e9;
+  --color-line-soft: #e9edf1;
+
+  --color-tape-50: #fdf3e2;
+  --color-tape-100: #fbe7c3;
+  --color-tape-400: #e6a53a;
+  --color-tape-500: #d3922a;
+  --color-tape-600: #b1791b;
+  --color-tape-700: #8a5d14;
+
+  --color-stamp-50: #e9f0f6;
+  --color-stamp-100: #d2e0ec;
+  --color-stamp-500: #2f5d86;
+  --color-stamp-600: #234a6c;
+  --color-stamp-700: #1a3852;
+
+  --color-mat-bubble: #2f9c86;
+  --color-mat-bubble-soft: #e3f3ee;
+  --color-mat-wrapping: #3b7dc0;
+  --color-mat-wrapping-soft: #e5eef8;
+  --color-mat-kardus: #bd7f22;
+  --color-mat-kardus-soft: #f6ecd9;
+  --color-mat-kayu: #8a5a3c;
+  --color-mat-kayu-soft: #efe6df;
+
+  --color-band-total: #fbf0d9;
+  --color-band-total-ink: #7a5410;
+  --color-band-barang: #f6e7e6;
+  --color-band-barang-ink: #7c3f3a;
+  --color-band-packing: #e5efe4;
+  --color-band-packing-ink: #386145;
+
+  --color-danger: #b3432f;
+
+  /* ---------------------------------------------------------------- */
+  /* Typography                                                       */
+  /* ---------------------------------------------------------------- */
+  --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Monaco, monospace;
+
+  /* ---------------------------------------------------------------- */
+  /* Radius & shadow                                                  */
+  /* ---------------------------------------------------------------- */
+  --radius-sm: 0.375rem;
+  --radius-base: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+
+  --shadow-card: 0 1px 2px rgba(16, 22, 29, 0.04), 0 10px 28px -12px rgba(16, 22, 29, 0.18);
+  --shadow-stamp: 0 6px 14px -6px rgba(179, 122, 22, 0.55);
+  --shadow-pop: 0 10px 30px -10px rgba(16, 22, 29, 0.28);
+
+  --animate-fade-in: fade-in 260ms ease-out both;
+  --animate-slide-up: slide-up 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-stamp: stamp-down 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  @keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes slide-up {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes stamp-down {
+    0% { transform: scale(1) rotate(-2deg); }
+    45% { transform: scale(0.94) rotate(0deg); }
+    100% { transform: scale(1) rotate(-2deg); }
+  }
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink-900 font-sans antialiased;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(16, 22, 29, 0.06) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-ink-400/50 rounded-full;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-4 ring-stamp-500/20;
+  }
+
+  ::selection {
+    @apply bg-tape-100 text-ink-900;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* App shell -------------------------------------------------------- */
+  .app-shell {
+    @apply min-h-screen flex flex-col items-center justify-start px-4 py-8 md:py-12;
+  }
+
+  .ledger {
+    @apply w-full max-w-[420px] mx-auto;
+  }
+
+  .ledger-card {
+    @apply relative bg-surface rounded-xl border border-line overflow-hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Decorative barcode strip at the top of the main slip -------------- */
+  .barcode {
+    @apply flex items-end gap-[2px] h-4 px-5 pt-3 opacity-70;
+  }
+  .barcode span {
+    @apply block bg-ink-900/70 rounded-[1px];
+    width: 2px;
+  }
+
+  /* Dashed tear line between sections ---------------------------------*/
+  .tear-line {
+    @apply border-t border-dashed border-line relative;
+  }
+
+  /* Field rows (PANJANG / LEBAR / TINGGI) ------------------------------*/
+  .field-row {
+    @apply flex items-center gap-3;
+  }
+  .field-label {
+    @apply w-[4.5rem] shrink-0 text-[11px] tracking-[0.14em] font-semibold text-ink-500 font-display uppercase;
+  }
+  .field-box {
+    @apply flex-1 min-w-0;
+  }
+  .field-box input {
+    @apply w-full bg-paper border border-line rounded-base px-3 py-2.5 text-right font-mono text-base font-medium text-ink-900 transition-all duration-150;
+  }
+  .field-box input:focus {
+    @apply bg-white border-stamp-500 ring-4 ring-stamp-500/15 outline-none;
+  }
+  .field-unit {
+    @apply w-6 shrink-0 text-xs font-semibold text-ink-500 font-display;
+  }
+
+  /* Stamp button --------------------------------------------------------*/
+  .stamp-btn {
+    @apply relative inline-flex flex-col items-center justify-center gap-0.5 font-display font-bold uppercase tracking-[0.08em]
+      text-white rounded-lg select-none cursor-pointer transition-transform duration-150;
+    background: linear-gradient(155deg, var(--color-stamp-500), var(--color-stamp-700));
+    box-shadow: var(--shadow-stamp);
+    transform: rotate(-2deg);
+  }
+  .stamp-btn::before {
+    content: "";
+    @apply absolute inset-[3px] rounded-[7px] border border-dashed border-white/35 pointer-events-none;
+  }
+  .stamp-btn:hover:not(:disabled) {
+    transform: rotate(0deg) translateY(-1px);
+  }
+  .stamp-btn:active:not(:disabled) {
+    animation: var(--animate-stamp);
+  }
+  .stamp-btn:disabled {
+    @apply opacity-40 cursor-not-allowed grayscale;
+    transform: rotate(-2deg);
+  }
+
+  /* Checkbox (ledger tick box) ------------------------------------------*/
+  .tick-box {
+    @apply relative inline-flex items-center justify-center w-5 h-5 shrink-0 rounded-[5px] border-2 border-line-soft bg-white
+      transition-all duration-150 cursor-pointer;
+  }
+  .tick-box[data-checked="true"] {
+    @apply bg-stamp-500 border-stamp-500;
+  }
+  .tick-box svg {
+    @apply w-3 h-3 text-white scale-0 transition-transform duration-150;
+  }
+  .tick-box[data-checked="true"] svg {
+    @apply scale-100;
+  }
+
+  /* Results table ---------------------------------------------------- */
+  .packing-table {
+    @apply w-full border-collapse;
+  }
+  .packing-table thead th {
+    @apply text-[10px] font-display font-semibold uppercase tracking-[0.1em] text-ink-500 text-left pb-2;
+  }
+  .packing-table tbody tr {
+    @apply border-t border-line-soft transition-colors duration-150;
+  }
+  .packing-table tbody tr[data-active="false"] {
+    @apply opacity-40;
+  }
+  .packing-table tbody td {
+    @apply py-3 align-top;
+  }
+
+  .band-row {
+    @apply flex items-center justify-between px-4 py-2.5 rounded-base;
+  }
+
+  /* Buttons ------------------------------------------------------------*/
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-display font-semibold text-sm rounded-base transition-all duration-150
+      disabled:opacity-40 disabled:cursor-not-allowed active:scale-[0.97] focus-visible:ring-4;
+  }
+  .btn-ghost {
+    @apply text-ink-500 hover:text-ink-900 hover:bg-ink-900/[0.04];
+  }
+  .btn-outline {
+    @apply border border-line text-ink-700 bg-white hover:border-ink-400 hover:bg-paper;
+  }
+  .btn-tape {
+    @apply text-white shadow-sm hover:shadow-md;
+    background: linear-gradient(155deg, var(--color-tape-400), var(--color-tape-600));
+  }
+
+  /* Inputs (settings page) ---------------------------------------------*/
+  .field {
+    @apply w-full;
+  }
+  .field-input {
+    @apply w-full bg-paper border border-line rounded-base px-3.5 py-2.5 font-mono text-sm font-medium text-ink-900
+      transition-all duration-150 focus:bg-white focus:border-stamp-500 focus:ring-4 focus:ring-stamp-500/15 focus:outline-none;
+  }
+}
