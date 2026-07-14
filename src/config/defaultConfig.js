@@ -17,7 +17,7 @@ const defaultConfig = {
     },
 
     kardus: {
-        hargaLembar: 20000,
+        hargaLembar: 15000,
         panjang: 300,
         lebar: 115,
         marginX: 3 // kelipatan modal (default 3x)
