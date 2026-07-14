@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Shell from "../components/Shell";
@@ -6,11 +6,16 @@ import DimensionForm from "../components/DimensionForm";
 import PackingTable from "../components/PackingTable";
 import { IconGear, IconBox } from "../components/icons";
 
+import { getConfig } from "../utils/config";
 import {
     calculateBubble,
     calculateWrapping,
     calculateKardus,
-    calculateKayu
+    calculateKayu,
+    calculateIndahCargoBubble,
+    calculateIndahCargoWrapping,
+    calculateIndahCargoKardus,
+    calculateIndahCargoKayu
 } from "../utils/calculator";
 
 const kosong = {
@@ -40,23 +45,35 @@ export default function Home() {
         kayu: true
     });
 
+    const [configMethod, setConfigMethod] = useState("");
+
+    useEffect(() => {
+        const config = getConfig();
+        setConfigMethod(config.method);
+    }, []);
+
     function hitung() {
         const p = Number(panjang);
         const l = Number(lebar);
         const t = Number(tinggi);
 
+        const config = getConfig();
+        const isIndahCargo = config.method === "indah-cargo-pusat";
+
         setHasil({
-            bubble: calculateBubble(p, l, t),
-            wrapping: calculateWrapping(p, l, t),
-            kardus: calculateKardus(p, l, t),
-            kayu: calculateKayu(p, l, t)
+            bubble: isIndahCargo ? calculateIndahCargoBubble(p, l, t) : calculateBubble(p, l, t),
+            wrapping: isIndahCargo ? calculateIndahCargoWrapping(p, l, t) : calculateWrapping(p, l, t),
+            kardus: isIndahCargo ? calculateIndahCargoKardus(p, l, t) : calculateKardus(p, l, t),
+            kayu: isIndahCargo ? calculateIndahCargoKayu(p, l, t) : calculateKayu(p, l, t)
         });
+        
     }
 
     function toggle(key) {
         setSelected((prev) => ({ ...prev, [key]: !prev[key] }));
     }
 
+     
     return (
         <Shell>
             <div className="ledger-card animate-slide-up">
@@ -64,7 +81,7 @@ export default function Home() {
                 <div className="barcode">
                     {[3, 1, 2, 1, 4, 1, 1, 2, 3, 1, 2, 1, 1, 3, 2, 1, 1, 4, 1, 2, 3, 1].map(
                         (w, i) => (
-                            <span key={i} style={{ height: `${40 + (w % 3) * 20}%`, width: `${w}px` }} />
+                            <span key={i} style={{ height: `${80 + (w % 3) * 30}%`, width: `${w}px` }} />
                         )
                     )}
                 </div>
@@ -78,7 +95,7 @@ export default function Home() {
                         <h1 className="font-display font-bold text-[15px] leading-tight uppercase tracking-[0.02em] text-ink-900">
                             Kalkulator Biaya Packing
                         </h1>
-                        <p className="text-[11px] text-ink-500">Estimasi bahan &amp; ongkos packing</p>
+                        <p className="text-[11px] text-ink-500 capitalize">* Rumus {configMethod.replace(/-/g, ' ')}</p>
                     </div>
                 </div>
 

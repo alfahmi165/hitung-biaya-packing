@@ -37,7 +37,7 @@ getOrientation(
   const harga = modal * config.bubble.marginX;
 
   return {
-
+    
     volumeBarang:
       volumeKg(p, l, t) + " Kg",
 

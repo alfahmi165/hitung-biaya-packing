@@ -21,6 +21,14 @@ export default function Config() {
         setSaved(false);
     }
 
+    function updateMethod(method) {
+        setConfig((prev) => ({
+            ...prev,
+            method: method,
+        }));
+        setSaved(false);
+    }
+
     function simpan() {
         saveConfig(config);
         setSaved(true);
@@ -47,135 +55,194 @@ export default function Config() {
             </div>
 
             <div className="px-1">
-                <h1 className="font-display font-bold text-lg text-ink-900">Bahan &amp; Margin</h1>
+                <h1 className="font-display font-bold text-lg text-ink-900">Metode Perhitungan</h1>
                 <p className="text-xs text-ink-500 mt-1">
-                    Atur harga bahan baku, dimensi roll/lembar, dan kelipatan margin keuntungan tiap material.
+                    Pilih metode perhitungan biaya packing yang akan digunakan.
                 </p>
             </div>
 
-            <div className="flex flex-col gap-4">
-                <SettingCard
-                    accent="bubble"
-                    swatch="bg-mat-bubble"
-                    title="Bubble Wrap"
-                    description="Gelembung plastik untuk peredam benturan"
-                >
-                    <ConfigInput
-                        label="Harga / Roll"
-                        value={config.bubble.hargaRoll}
-                        suffix="Rp"
-                        onChange={(v) => update("bubble", "hargaRoll", v)}
-                    />
-                    <ConfigInput
-                        label="Lebar Roll"
-                        value={config.bubble.lebarRoll}
-                        suffix="cm"
-                        onChange={(v) => update("bubble", "lebarRoll", v)}
-                    />
-                    <ConfigInput
-                        label="Panjang Roll"
-                        value={config.bubble.panjangRoll}
-                        suffix="cm"
-                        onChange={(v) => update("bubble", "panjangRoll", v)}
-                    />
-                    <ConfigInput
-                        label="Margin (x Modal)"
-                        value={config.bubble.marginX}
-                        suffix="x"
-                        onChange={(v) => update("bubble", "marginX", v)}
-                    />
-                </SettingCard>
+            {/* Method Selection */}
+            <div className="px-1">
+                <div className="space-y-3">
+                    <label className="flex items-center gap-3 p-3 border border-ink-200 rounded-lg cursor-pointer hover:bg-ink-50 transition"
+                           onClick={() => updateMethod("mitra-ratu-samban")}>
+                        <input
+                            type="radio"
+                            name="method"
+                            value="mitra-ratu-samban"
+                            checked={config.method === "mitra-ratu-samban"}
+                            onChange={(e) => updateMethod(e.target.value)}
+                            className="w-4 h-4"
+                        />
+                        <div className="flex-1">
+                            <p className="font-medium text-sm text-ink-900">Mitra Ratu Samban</p>
+                            <p className="text-xs text-ink-500">Menggunakan harga bahan, panjang material, dan margin</p>
+                        </div>
+                    </label>
 
-                <SettingCard
-                    accent="wrapping"
-                    swatch="bg-mat-wrapping"
-                    title="Wrapping"
-                    description="Plastik pembungkus lapisan luar"
-                >
-                    <ConfigInput
-                        label="Harga / Roll"
-                        value={config.wrapping.hargaRoll}
-                        suffix="Rp"
-                        onChange={(v) => update("wrapping", "hargaRoll", v)}
-                    />
-                    <ConfigInput
-                        label="Lebar Roll"
-                        value={config.wrapping.lebarRoll}
-                        suffix="cm"
-                        onChange={(v) => update("wrapping", "lebarRoll", v)}
-                    />
-                    <ConfigInput
-                        label="Panjang Roll"
-                        value={config.wrapping.panjangRoll}
-                        suffix="cm"
-                        onChange={(v) => update("wrapping", "panjangRoll", v)}
-                    />
-                    <ConfigInput
-                        label="Margin (x Modal)"
-                        value={config.wrapping.marginX}
-                        suffix="x"
-                        onChange={(v) => update("wrapping", "marginX", v)}
-                    />
-                </SettingCard>
-
-                <SettingCard
-                    accent="kardus"
-                    swatch="bg-mat-kardus"
-                    title="Kardus"
-                    description="Kotak kardus untuk pengiriman barang"
-                >
-                    <ConfigInput
-                        label="Harga / Lembar"
-                        value={config.kardus.hargaLembar}
-                        suffix="Rp"
-                        onChange={(v) => update("kardus", "hargaLembar", v)}
-                    />
-                    <ConfigInput
-                        label="Lebar"
-                        value={config.kardus.lebar}
-                        suffix="cm"
-                        onChange={(v) => update("kardus", "lebar", v)}
-                    />
-                    <ConfigInput
-                        label="Panjang"
-                        value={config.kardus.panjang}
-                        suffix="cm"
-                        onChange={(v) => update("kardus", "panjang", v)}
-                    />
-                    <ConfigInput
-                        label="Margin (x Modal)"
-                        value={config.kardus.marginX}
-                        suffix="x"
-                        onChange={(v) => update("kardus", "marginX", v)}
-                    />
-                </SettingCard>
-
-                <SettingCard
-                    accent="kayu"
-                    swatch="bg-mat-kayu"
-                    title="Peti Kayu"
-                    description="Peti kayu untuk barang berat atau fragile"
-                >
-                    <ConfigInput
-                        label="Harga / Batang"
-                        value={config.kayu.hargaBatang}
-                        suffix="Rp"
-                        onChange={(v) => update("kayu", "hargaBatang", v)}
-                    />
-                    <ConfigInput
-                        label="Panjang Batang"
-                        value={config.kayu.panjangBatang}
-                        suffix="cm"
-                        onChange={(v) => update("kayu", "panjangBatang", v)}
-                    />
-                    <ConfigInput
-                        label="Margin (x Modal)"
-                        value={config.kayu.marginX}
-                        suffix="x"
-                        onChange={(v) => update("kayu", "marginX", v)}
-                    />
-                </SettingCard>
+                    <label className="flex items-center gap-3 p-3 border border-ink-200 rounded-lg cursor-pointer hover:bg-ink-50 transition"
+                           onClick={() => updateMethod("indah-cargo-pusat")}>
+                        <input
+                            type="radio"
+                            name="method"
+                            value="indah-cargo-pusat"
+                            checked={config.method === "indah-cargo-pusat"}
+                            onChange={(e) => updateMethod(e.target.value)}
+                            className="w-4 h-4"
+                        />
+                        <div className="flex-1">
+                            <p className="font-medium text-sm text-ink-900">Indah Cargo Pusat</p>
+                            <p className="text-xs text-ink-500">Menggunakan rumus sederhana: ((p+l+t)/3)*tarif</p>
+                        </div>
+                    </label>
+                </div>
             </div>
+
+            {/* Conditional rendering based on method */}
+            {config.method === "mitra-ratu-samban" && (
+                <>
+                    <div className="px-1 mt-6">
+                        <h1 className="font-display font-bold text-lg text-ink-900">Bahan &amp; Margin</h1>
+                        <p className="text-xs text-ink-500 mt-1">
+                            Atur harga bahan baku, dimensi roll/lembar, dan kelipatan margin keuntungan tiap material.
+                        </p>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                        <SettingCard
+                            accent="bubble"
+                            swatch="bg-mat-bubble"
+                            title="Bubble Wrap"
+                            description="Gelembung plastik untuk peredam benturan"
+                        >
+                            <ConfigInput
+                                label="Harga / Roll"
+                                value={config.bubble.hargaRoll}
+                                suffix="Rp"
+                                onChange={(v) => update("bubble", "hargaRoll", v)}
+                            />
+                            <ConfigInput
+                                label="Lebar Roll"
+                                value={config.bubble.lebarRoll}
+                                suffix="cm"
+                                onChange={(v) => update("bubble", "lebarRoll", v)}
+                            />
+                            <ConfigInput
+                                label="Panjang Roll"
+                                value={config.bubble.panjangRoll}
+                                suffix="cm"
+                                onChange={(v) => update("bubble", "panjangRoll", v)}
+                            />
+                            <ConfigInput
+                                label="Margin (x Modal)"
+                                value={config.bubble.marginX}
+                                suffix="x"
+                                onChange={(v) => update("bubble", "marginX", v)}
+                            />
+                        </SettingCard>
+
+                        <SettingCard
+                            accent="wrapping"
+                            swatch="bg-mat-wrapping"
+                            title="Wrapping"
+                            description="Plastik pembungkus lapisan luar"
+                        >
+                            <ConfigInput
+                                label="Harga / Roll"
+                                value={config.wrapping.hargaRoll}
+                                suffix="Rp"
+                                onChange={(v) => update("wrapping", "hargaRoll", v)}
+                            />
+                            <ConfigInput
+                                label="Lebar Roll"
+                                value={config.wrapping.lebarRoll}
+                                suffix="cm"
+                                onChange={(v) => update("wrapping", "lebarRoll", v)}
+                            />
+                            <ConfigInput
+                                label="Panjang Roll"
+                                value={config.wrapping.panjangRoll}
+                                suffix="cm"
+                                onChange={(v) => update("wrapping", "panjangRoll", v)}
+                            />
+                            <ConfigInput
+                                label="Margin (x Modal)"
+                                value={config.wrapping.marginX}
+                                suffix="x"
+                                onChange={(v) => update("wrapping", "marginX", v)}
+                            />
+                        </SettingCard>
+
+                        <SettingCard
+                            accent="kardus"
+                            swatch="bg-mat-kardus"
+                            title="Kardus"
+                            description="Kotak kardus untuk pengiriman barang"
+                        >
+                            <ConfigInput
+                                label="Harga / Lembar"
+                                value={config.kardus.hargaLembar}
+                                suffix="Rp"
+                                onChange={(v) => update("kardus", "hargaLembar", v)}
+                            />
+                            <ConfigInput
+                                label="Lebar"
+                                value={config.kardus.lebar}
+                                suffix="cm"
+                                onChange={(v) => update("kardus", "lebar", v)}
+                            />
+                            <ConfigInput
+                                label="Panjang"
+                                value={config.kardus.panjang}
+                                suffix="cm"
+                                onChange={(v) => update("kardus", "panjang", v)}
+                            />
+                            <ConfigInput
+                                label="Margin (x Modal)"
+                                value={config.kardus.marginX}
+                                suffix="x"
+                                onChange={(v) => update("kardus", "marginX", v)}
+                            />
+                        </SettingCard>
+
+                        <SettingCard
+                            accent="kayu"
+                            swatch="bg-mat-kayu"
+                            title="Peti Kayu"
+                            description="Peti kayu untuk barang berat atau fragile"
+                        >
+                            <ConfigInput
+                                label="Harga / Batang"
+                                value={config.kayu.hargaBatang}
+                                suffix="Rp"
+                                onChange={(v) => update("kayu", "hargaBatang", v)}
+                            />
+                            <ConfigInput
+                                label="Panjang Batang"
+                                value={config.kayu.panjangBatang}
+                                suffix="cm"
+                                onChange={(v) => update("kayu", "panjangBatang", v)}
+                            />
+                            <ConfigInput
+                                label="Margin (x Modal)"
+                                value={config.kayu.marginX}
+                                suffix="x"
+                                onChange={(v) => update("kayu", "marginX", v)}
+                            />
+                        </SettingCard>
+                    </div>
+                </>
+            )}
+
+            {config.method === "indah-cargo-pusat" && (
+                <div className="px-1 mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <p className="text-sm text-blue-900">
+                        <span className="font-semibold">Rumus Indah Cargo Pusat:</span><br/>
+                        Untuk Bubble, Wrapping, Kardus: <code className="font-mono bg-white px-2 py-1 rounded">((p+l+t)/3) × 1500</code><br/>
+                        Untuk Kayu: <code className="font-mono bg-white px-2 py-1 rounded">((p+l+t)/3) × 3500</code>
+                    </p>
+                </div>
+            )}
 
             {/* Actions */}
             <div className="flex gap-3 px-1 pb-2">

@@ -58,7 +58,7 @@ export default function PackingTable({ hasil, selected, onToggle }) {
               <th className="w-[30%]">Jenis Packing</th>
               <th className="w-[24%]">Bahan</th>
               <th className="w-[22%]">Modal</th>
-              <th className="w-[24%] text-right">Biaya</th>
+              <th className="w-[24%] text-center">Biaya</th>
               <th className="w-6" />
             </tr>
           </thead>
