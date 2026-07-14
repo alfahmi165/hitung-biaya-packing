@@ -188,6 +188,15 @@ export function calculateKayu(p, l, t) {
         batang.length *
         config.kayu.hargaBatang;
 
+    // harga = modal × marginX
+    const harga = modal * config.kayu.marginX;
+
+    // Format rincian untuk tooltip: "12×80cm (12 pcs), 5×92cm (5 pcs), ..."
+    const rincian = Object.entries(summary)
+        .sort((a, b) => Number(b[0]) - Number(a[0]))
+        .map(([ukuran, jumlah]) => `${jumlah}×${ukuran}cm`)
+        .join(", ");
+
     return {
 
         volumeBarang:
@@ -200,31 +209,22 @@ export function calculateKayu(p, l, t) {
                 dim.t
             ) + " Kg",
 
+        // Display: jumlah total batang (one-line)
         bahan:
+            `${batang.length} btg`,
 
-            Object.entries(summary)
-
-                .map(
-
-                    ([u, j]) =>
-
-                        `${u} cm × ${j}`
-
-                )
-
-                .join(", "),
+        // Detail potongan kayu (untuk tooltip)
+        rincian:
+            rincian,
 
         jumlahBatang:
             batang.length,
 
         modal:
-            rupiah(modal),
+            rupiah(Math.ceil(modal)),
 
         harga:
-            rupiah(
-                modal +
-                config.kayu.margin
-            )
+            rupiah(Math.ceil(harga))
 
     };
 

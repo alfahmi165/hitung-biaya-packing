@@ -5,7 +5,7 @@ const defaultConfig = {
         panjangRoll: 5000, // cm
         lebarRoll: 120,    // cm
         layer: 2,
-        margin: 10000
+        marginX: 3 // kelipatan modal (default 3x)
     },
 
     wrapping: {
@@ -13,14 +13,14 @@ const defaultConfig = {
         panjangRoll: 30000,
         lebarRoll: 50,
         layer: 3,
-        margin: 10000
+        marginX: 3 // kelipatan modal (default 3x)
     },
 
     kardus: {
         hargaLembar: 10000,
         panjang: 300,
         lebar: 115,
-        margin: 10000
+        marginX: 3 // kelipatan modal (default 3x)
     },
 
     kayu: {
@@ -28,7 +28,7 @@ const defaultConfig = {
         panjangBatang: 160, //cm
         jarakRangka: 40, //cm
         sambungan: 20, //cm
-        margin: 50000
+        marginX: 3 // kelipatan modal (default 3x)
     }
 
 }

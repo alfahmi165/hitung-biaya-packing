@@ -49,7 +49,7 @@ export default function Config() {
             <div className="px-1">
                 <h1 className="font-display font-bold text-lg text-ink-900">Bahan &amp; Margin</h1>
                 <p className="text-xs text-ink-500 mt-1">
-                    Atur harga bahan baku, dimensi roll/lembar, dan margin keuntungan tiap material.
+                    Atur harga bahan baku, dimensi roll/lembar, dan kelipatan margin keuntungan tiap material.
                 </p>
             </div>
 
@@ -79,10 +79,10 @@ export default function Config() {
                         onChange={(v) => update("bubble", "panjangRoll", v)}
                     />
                     <ConfigInput
-                        label="Margin"
-                        value={config.bubble.margin}
-                        suffix="Rp"
-                        onChange={(v) => update("bubble", "margin", v)}
+                        label="Margin (x Modal)"
+                        value={config.bubble.marginX}
+                        suffix="x"
+                        onChange={(v) => update("bubble", "marginX", v)}
                     />
                 </SettingCard>
 
@@ -111,10 +111,10 @@ export default function Config() {
                         onChange={(v) => update("wrapping", "panjangRoll", v)}
                     />
                     <ConfigInput
-                        label="Margin"
-                        value={config.wrapping.margin}
-                        suffix="Rp"
-                        onChange={(v) => update("wrapping", "margin", v)}
+                        label="Margin (x Modal)"
+                        value={config.wrapping.marginX}
+                        suffix="x"
+                        onChange={(v) => update("wrapping", "marginX", v)}
                     />
                 </SettingCard>
 
@@ -143,10 +143,10 @@ export default function Config() {
                         onChange={(v) => update("kardus", "panjang", v)}
                     />
                     <ConfigInput
-                        label="Margin"
-                        value={config.kardus.margin}
-                        suffix="Rp"
-                        onChange={(v) => update("kardus", "margin", v)}
+                        label="Margin (x Modal)"
+                        value={config.kardus.marginX}
+                        suffix="x"
+                        onChange={(v) => update("kardus", "marginX", v)}
                     />
                 </SettingCard>
 
@@ -169,10 +169,10 @@ export default function Config() {
                         onChange={(v) => update("kayu", "panjangBatang", v)}
                     />
                     <ConfigInput
-                        label="Margin"
-                        value={config.kayu.margin}
-                        suffix="Rp"
-                        onChange={(v) => update("kayu", "margin", v)}
+                        label="Margin (x Modal)"
+                        value={config.kayu.marginX}
+                        suffix="x"
+                        onChange={(v) => update("kayu", "marginX", v)}
                     />
                 </SettingCard>
             </div>

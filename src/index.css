@@ -266,3 +266,108 @@
       transition-all duration-150 focus:bg-white focus:border-stamp-500 focus:ring-4 focus:ring-stamp-500/15 focus:outline-none;
   }
 }
+
+/* ============================================================================
+   INFO TOOLTIP BUTTON - IMPROVED VERSION
+   (Lebih lebar, readable, dan warna lebih konsisten)
+   ============================================================================ */
+
+.info-tooltip-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background-color: var(--color-stamp-50);
+  border: 0px solid var(--color-stamp-500);
+  color: var(--color-stamp-600);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  cursor: help;
+  transition: all 150ms ease;
+  user-select: none;
+}
+
+.info-tooltip-btn:hover {
+  background-color: var(--color-stamp-500);
+  color: white;
+  box-shadow: 0 4px 12px rgba(47, 93, 134, 0.3);
+}
+
+.info-tooltip-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(47, 93, 134, 0.2);
+}
+
+/* Tooltip display - IMPROVED WIDTH & READABILITY */
+.info-tooltip-btn::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background-color: var(--color-ink-900);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  white-space: normal;
+  max-width: 280px;
+  min-width: 200px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+  z-index: 1000;
+  word-break: break-word;
+  line-height: 1.5;
+  box-shadow: 0 6px 20px rgba(16, 22, 29, 0.3);
+  text-align: left;
+}
+
+.info-tooltip-btn:hover::after {
+  opacity: 1;
+}
+
+/* Tooltip arrow pointer */
+.info-tooltip-btn::before {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid var(--color-ink-900);
+  opacity: 0;
+  transition: opacity 150ms ease;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+.info-tooltip-btn:hover::before {
+  opacity: 1;
+}
+
+/* Mobile: Tap untuk toggle tooltip */
+@media (max-width: 768px) {
+  .info-tooltip-btn::after {
+    max-width: 250px;
+    min-width: 180px;
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+
+  .info-tooltip-btn:active::after,
+  .info-tooltip-btn:active::before {
+    opacity: 1;
+  }
+}

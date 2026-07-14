@@ -76,7 +76,23 @@ export default function PackingTable({ hasil, selected, onToggle }) {
                       </span>
                     </div>
                   </td>
-                  <td className="font-mono text-xs text-ink-500 leading-snug">{data.bahan}</td>
+                  <td className="font-mono text-xs text-ink-500 leading-snug">
+                    {row.key === "kayu" ? (
+                      <div className="flex items-center gap-1.5">
+                        <span className="font-semibold text-ink-500">{data.bahan}</span>
+                        <button
+                          type="button"
+                          className="info-tooltip-btn"
+                          title={`Rincian potongan: ${data.rincian}`}
+                          aria-label="Detail potongan kayu"
+                        >
+                          ⓘ
+                        </button>
+                      </div>
+                    ) : (
+                      data.bahan
+                    )}
+                  </td>
                   <td className="font-mono text-xs text-ink-500">{data.modal}</td>
                   <td className="font-mono text-sm font-semibold text-ink-900 text-right whitespace-nowrap">
                     {data.harga}

@@ -32,6 +32,9 @@ getPackingDimension(
   const modal =
     panjangWrapping * biayaPerCm
 
+  // harga = modal × marginX
+  const harga = modal * config.wrapping.marginX;
+
   return {
 
     volumeBarang:
@@ -47,13 +50,8 @@ getPackingDimension(
       rupiah(Math.ceil(modal)),
 
     harga:
-      
-      rupiah(
-        Math.ceil(
-          modal +
-          config.wrapping.margin
-        )
-      )
+
+      rupiah(Math.ceil(harga))
 
   }
 

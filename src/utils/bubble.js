@@ -31,6 +31,9 @@ getOrientation(
   const modal =
     panjangBubble * (config.bubble.hargaRoll / config.bubble.panjangRoll);
 
+  // harga = modal × marginX
+  const harga = modal * config.bubble.marginX;
+
   return {
 
     volumeBarang:
@@ -58,13 +61,8 @@ getOrientation(
       rupiah(Math.ceil(modal)),
 
     harga:
-      
-      rupiah(
-        Math.ceil(
-          modal +
-          config.bubble.margin
-        )
-      )
+
+      rupiah(Math.ceil(harga))
 
   }
 

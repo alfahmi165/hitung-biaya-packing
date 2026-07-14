@@ -32,6 +32,12 @@ export function calculateKardus(
   const panjangKardus =
     hasil.panjang * hasil.strip;
 
+  const modal =
+    panjangKardus.toFixed(0) * (config.kardus.hargaLembar / config.kardus.panjang);
+
+  // harga = modal × marginX
+  const harga = modal * config.kardus.marginX;
+
   return {
 
     volumeBarang:
@@ -49,17 +55,14 @@ export function calculateKardus(
       " cm",
 
     modal:
-      
+
       rupiah(
-        panjangKardus.toFixed(0) * (config.kardus.hargaLembar / config.kardus.panjang)
+        Math.ceil(modal)
       ),
 
     harga:
-      
-      rupiah(
-        config.kardus.hargaLembar +
-        config.kardus.margin
-      )
+
+      rupiah(Math.ceil(harga))
 
   }
 
