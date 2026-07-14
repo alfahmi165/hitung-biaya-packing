@@ -28,8 +28,10 @@ getOrientation(
   const panjangBubble =
     hasil.panjang * hasil.strip * 2;
 
+  const panjangBubbleUp = Math.ceil(panjangBubble / 100) * 100;
+
   const modal =
-    panjangBubble * (config.bubble.hargaRoll / config.bubble.panjangRoll);
+    panjangBubbleUp * (config.bubble.hargaRoll / config.bubble.panjangRoll);
 
   // harga = modal × marginX
   const harga = modal * config.bubble.marginX;

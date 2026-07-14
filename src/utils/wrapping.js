@@ -29,8 +29,10 @@ getPackingDimension(
     config.wrapping.hargaRoll /
     config.wrapping.panjangRoll
 
+  const panjangWrappingUp = Math.ceil(panjangWrapping / 100) * 100;
+
   const modal =
-    panjangWrapping * biayaPerCm
+    panjangWrappingUp * biayaPerCm
 
   // harga = modal × marginX
   const harga = modal * config.wrapping.marginX;

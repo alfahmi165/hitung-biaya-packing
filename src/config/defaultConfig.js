@@ -10,14 +10,14 @@ const defaultConfig = {
 
     wrapping: {
         hargaRoll: 100000,
-        panjangRoll: 30000,
+        panjangRoll: 25000,
         lebarRoll: 50,
         layer: 3,
         marginX: 3 // kelipatan modal (default 3x)
     },
 
     kardus: {
-        hargaLembar: 10000,
+        hargaLembar: 20000,
         panjang: 300,
         lebar: 115,
         marginX: 3 // kelipatan modal (default 3x)

@@ -32,8 +32,10 @@ export function calculateKardus(
   const panjangKardus =
     hasil.panjang * hasil.strip;
 
+  const panjangKardusUp = Math.ceil(panjangKardus / 100) * 100;
+
   const modal =
-    panjangKardus.toFixed(0) * (config.kardus.hargaLembar / config.kardus.panjang);
+    panjangKardusUp * (config.kardus.hargaLembar / config.kardus.panjang);
 
   // harga = modal × marginX
   const harga = modal * config.kardus.marginX;
