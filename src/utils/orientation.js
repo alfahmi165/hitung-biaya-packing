@@ -91,12 +91,12 @@ export function getOrientation(p, l, t, maxWidth) {
 
         {
             ukuran:p+t,
-            panjang:l+t
+            panjang:2*(l+t)
         },
 
         {
             ukuran:l+t,
-            panjang:2*(l+t)
+            panjang:2*(p+t)
         }
 
     ];
