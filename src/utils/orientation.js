@@ -174,13 +174,13 @@ export function getOrientation(p, l, t, maxWidth) {
 
         const strip =
         Math.ceil(
-            item.orientasi /
+            item.panjang /
             maxWidth
         );
 
 
         const total =
-        item.panjang *
+        item.orientation *
         strip;
 
 
