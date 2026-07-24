@@ -3,7 +3,7 @@ const defaultConfig = {
     method: "mitra-ratu-samban",
 
     bubble: {
-        hargaRoll: 120000,
+        hargaRoll: 155000,
         panjangRoll: 5000,
         lebarRoll: 120,
         layer: 2,
@@ -31,7 +31,16 @@ const defaultConfig = {
         jarakRangka: 40,
         sambungan: 20,
         marginX: 3
+    },
+
+    karung: {
+        hargaLembar: 5000,
+        panjang: 120,
+        lebar: 80,
+        sambungan: 5,
+        marginX: 3
     }
+
 }
 
 export default defaultConfig

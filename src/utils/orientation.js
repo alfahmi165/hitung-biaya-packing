@@ -180,7 +180,7 @@ export function getOrientation(p, l, t, maxWidth) {
 
 
         const total =
-        item.orientation *
+        item.orientasi *
         strip;
 
 
@@ -193,13 +193,13 @@ export function getOrientation(p, l, t, maxWidth) {
             terbaik={
 
                 panjang:
-                item.panjang,
+                item.orientasi,
 
                 strip,
 
-                total,
+                metode:"Pendekatan 3",
 
-                metode:"Pendekatan 3"
+                total,
 
             };
 
